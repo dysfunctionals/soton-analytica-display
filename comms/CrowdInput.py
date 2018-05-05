@@ -5,10 +5,6 @@ class CrowdInput:
     def __init__(self, address):
         self.address = address
 
-    @staticmethod
-    def standardAddress():
-        return "http://10.9.174.43/data"
-
     def __getData__(self, seconds):
         r = requests.get(self.address + "?seconds=" + str(seconds))
         return r.json()
