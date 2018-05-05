@@ -1,0 +1,8 @@
+layers:
+  - 0:
+    - bldg_0.png:
+      - offset: 10
+      - unit: 7
+    - bldg_1.png:
+      - offset: 20
+      - unit: 12
