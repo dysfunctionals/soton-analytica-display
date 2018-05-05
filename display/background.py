@@ -19,11 +19,7 @@ class Background:
 
     def render(self):
 
-        self.screen.fill(BACKGROUND)
 
-        zucc = pygame.image.load(os.path.join("assets", "backgrounds", "bad", "ground.png"))
-
-        self.screen.blit(zucc, (0, screen_height - GROUND_HEIGHT))
 
         self.sprites.update(self.speed)
 
@@ -34,7 +30,12 @@ class Background:
                     q = buildong.rect.x
             self.add_building(random.randint(100, 800), q + self.building_width, width=self.building_width)
 
+        self.screen.fill(BACKGROUND)
+
         self.sprites.draw(self.screen)
+        
+        zucc = pygame.image.load(os.path.join("assets", "backgrounds", "city", "ground.png"))
+        self.screen.blit(zucc, (0, screen_height - GROUND_HEIGHT))
 
     def generate_buildings(self):
 
@@ -57,8 +58,12 @@ class Building(pygame.sprite.Sprite):
         self.height = height
         self.width = width
 
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.fill((51, 51, 51))
+        self.image_name = random.choice(list(BGINFO["layers"]["city"]["scroll"].keys()))
+        self.image_info = BGINFO["layers"]["city"]["scroll"][self.image_name]
+
+        image = pygame.image.load(os.path.join("assets", "backgrounds", "city", "scroll", self.image_name))
+        self.image = pygame.transform.scale(image, (200, 800))
+
         self.rect = self.image.get_rect()
 
         self.rect.y = screen_height - GROUND_HEIGHT - self.height
