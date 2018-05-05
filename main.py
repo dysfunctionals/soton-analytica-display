@@ -1,5 +1,6 @@
 import pygame
 from display.colours import *
+from display.characters import ZUCC
 
 
 pygame.init()
@@ -15,15 +16,27 @@ clock = pygame.time.Clock()
 
 game_playing = True
 
+sprites = pygame.sprite.Group()
+
+ZUCC = ZUCC()
+sprites.add(ZUCC)
+
+
 
 while game_playing:
 
-    screen.fill(BACKGROUND)
-
-    pygame.display.flip()
-    clock.tick(30)
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             game_playing = False
+
+    sprites.update()
+
+    screen.fill(BACKGROUND)
+
+    sprites.draw(screen)
+
+    pygame.display.flip()
+    clock.tick(60)
 
 pygame.quit()
