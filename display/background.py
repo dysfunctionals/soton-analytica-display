@@ -27,9 +27,12 @@ class Background:
 
         self.sprites.update(self.speed)
 
-
         if len(self.sprites) < self.building_amount:
-            self.generate_building()
+            q = -99999
+            for buildong in self.sprites:
+                if buildong.rect.x > q:
+                    q = buildong.rect.x
+            self.add_building(random.randint(100, 800), q + self.building_width, width=self.building_width)
 
         self.sprites.draw(self.screen)
 
@@ -38,13 +41,6 @@ class Background:
         for i in range(1, self.building_amount):
 
             self.add_building(random.randint(100, 800), i * self.building_width, width=self.building_width)
-
-    def generate_building(self):
-        q = -99999
-        for buildong in self.sprites:
-            if buildong.rect.x > q:
-                q = buildong.rect.x
-        self.add_building(random.randint(100, 800), q+self.building_width, width=self.building_width)
 
     def add_building(self, *args, **kwargs):
 
