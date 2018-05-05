@@ -1,10 +1,6 @@
 import requests
 import random
 
-
-def standardAddress():
-    return "http://10.9.174.43/data"
-
 class CrowdInput:    
     def __init__(self, address):
         self.address = address
@@ -17,6 +13,7 @@ class CrowdInput:
         data = self.__getData__(seconds)
         move = dict()
         for player, commands in data.items():
+            move[player] = dict()
             maxCommand = None
             maxAmount = -1
             for command, amount in commands.items():
@@ -25,26 +22,30 @@ class CrowdInput:
                     maxAmount = amount
 
             if maxAmount == 0:
-                move[player] = "none"
-            else:
-                move[player] = maxCommand
+                move[player] = 0
+            elif maxCommand == 'up':
+                move[player] = -3
+            elif maxCommand == 'down':
+                move[player] = 3
+
         return move
 
     def democracy(self, seconds):
         data = self.__getData__(seconds)
         move = dict()
         for player, commands in data.items():
+            total = 0
             commandSum = 0
             for command, amount in commands.items():
-                commandSum += amount
-            if commandSum == 0:
-                move[player] = "none"
+                if command == 'up':
+                    commandSum -= amount
+                elif command == 'down':
+                    commandSum += amount
+                total += amount
+                
+            if total == 0:
+                move[player] = 0
             else:
-                rand = random.randint(0, commandSum - 1)
-                for command, amount in commands.items():
-                    if rand > amount:
-                        rand -= amount
-                    else:
-                        move[player] = command
-                        break
+                move[player] = commandSum / total * 3
+        print(move)
         return move

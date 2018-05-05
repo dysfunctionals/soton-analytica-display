@@ -15,4 +15,8 @@ PIXEL_MULTIPLIER = 10
 # Background
 GROUND_HEIGHT = 100
 
+# Input
+default_address = "http://10.9.174.43/data"
+input_valid_time_seconds = 3
+
 game_title = "Soton Analytica"
