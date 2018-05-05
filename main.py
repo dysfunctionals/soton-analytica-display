@@ -4,13 +4,8 @@ from display.characters import ZUCC, Human
 from display.background import Background
 
 pygame.init()
-
 pygame.display.set_caption(game_title)
 screen = pygame.display.set_mode((screen_width, screen_height))
-
-clock = pygame.time.Clock()
-
-game_playing = True
 
 sprites = pygame.sprite.Group()
 
@@ -19,6 +14,12 @@ sprites.add(ZUCC)
 
 human = Human()
 sprites.add(human)
+
+bg = Background(screen)
+
+clock = pygame.time.Clock()
+
+game_playing = True
 
 while game_playing:
 
@@ -38,7 +39,7 @@ while game_playing:
 
     sprites.update()
 
-    Background.render(screen)
+    bg.render()
 
     sprites.draw(screen)
 

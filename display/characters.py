@@ -14,7 +14,7 @@ class Character(pygame.sprite.Sprite):
 
         # Initial Position
         self.rect.x = 0
-        self.rect.y = 0
+        self.rect.y = screen_height - self.getSize()[1] - GROUND_HEIGHT + 10
 
         # Initial Speed
         self.xSpeed = 0
