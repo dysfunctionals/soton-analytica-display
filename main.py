@@ -1,13 +1,8 @@
 import pygame
-from display.colours import *
+from display.constants import *
 from display.characters import ZUCC, Human
 
-
 pygame.init()
-
-screen_width = 1920
-screen_height = 1080
-game_title = "Soton Analytica"
 
 pygame.display.set_caption(game_title)
 screen = pygame.display.set_mode((screen_width, screen_height))
