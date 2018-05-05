@@ -1,6 +1,6 @@
 import pygame
 from display.colours import *
-from display.characters import ZUCC
+from display.characters import ZUCC, Human
 
 
 pygame.init()
@@ -21,7 +21,8 @@ sprites = pygame.sprite.Group()
 ZUCC = ZUCC()
 sprites.add(ZUCC)
 
-
+human = Human()
+sprites.add(human)
 
 while game_playing:
 
@@ -31,9 +32,9 @@ while game_playing:
             game_playing = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                ZUCC.ySpeed = -2
+                ZUCC.ySpeed = -3
             elif event.key == pygame.K_DOWN:
-                ZUCC.ySpeed = 2
+                ZUCC.ySpeed = 3
             elif event.key == pygame.K_e:
                 ZUCC.evolve()
         elif event.type == pygame.KEYUP:

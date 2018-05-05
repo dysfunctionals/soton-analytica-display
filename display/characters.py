@@ -45,12 +45,15 @@ class ZUCC(Character):
 
     def __init__(self):
 
+        self.currentStage = 0
         self.stages = os.listdir("assets/zucc/")
         self.stages.sort()
 
-        self.currentStage = 0
-
         super().__init__()
+
+        # Set x position
+
+        self.rect.x = 50
 
     def setupImage(self):
         self.drawImage()
@@ -65,3 +68,17 @@ class ZUCC(Character):
 
         self.currentStage += 1
         self.drawImage()
+
+class Human(Character):
+
+    def __init__(self):
+
+        super().__init__()
+
+        # Set x position
+
+        self.rect.x = 50
+
+    def setupImage(self):
+        human = pygame.image.load(os.path.join("assets", "human.png"))
+        self.image = pygame.transform.scale(human, (320, 480))
