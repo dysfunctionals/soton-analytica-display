@@ -1,4 +1,5 @@
 import pygame
+import os
 
 
 class Character(pygame.sprite.Sprite):
@@ -10,6 +11,11 @@ class Character(pygame.sprite.Sprite):
         self.setupImage()
         self.rect = self.image.get_rect()
 
+        # Initial Position
+        self.rect.x = 0
+        self.rect.y = 0
+
+        # Initial Speed
         self.xSpeed = 0
         self.ySpeed = 0
 
@@ -39,14 +45,23 @@ class ZUCC(Character):
 
     def __init__(self):
 
+        self.stages = os.listdir("assets/zucc/")
+        self.stages.sort()
+
+        self.currentStage = 0
+
         super().__init__()
 
-        self.stages = [
-            ""
-        ]
+    def setupImage(self):
+        self.drawImage()
 
-        self.currentStage = self.stages[0]
+    def drawImage(self):
+
+        if self.currentStage < len(self.stages):
+            zucc = pygame.image.load(os.path.join("assets", "zucc", self.stages[self.currentStage]))
+            self.image = pygame.transform.scale(zucc, (320, 480))
 
     def evolve(self):
 
-        raise NotImplementedError
+        self.currentStage += 1
+        self.drawImage()

@@ -29,6 +29,15 @@ while game_playing:
 
         if event.type == pygame.QUIT:
             game_playing = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                ZUCC.ySpeed = -2
+            elif event.key == pygame.K_DOWN:
+                ZUCC.ySpeed = 2
+            elif event.key == pygame.K_e:
+                ZUCC.evolve()
+        elif event.type == pygame.KEYUP:
+            ZUCC.ySpeed = 0
 
     sprites.update()
 
