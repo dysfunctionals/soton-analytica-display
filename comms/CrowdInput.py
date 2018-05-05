@@ -48,7 +48,3 @@ class CrowdInput:
                         move[player] = command
                         break
         return move
-
-                
-
-print(CrowdInput(standardAddress()).popular(0))
