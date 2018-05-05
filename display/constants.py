@@ -10,6 +10,7 @@ with open("assets/backgrounds/city/scroll/info.yml", "r") as file:
 
 screen_width = 1920
 screen_height = 1080
+PIXEL_MULTIPLIER = 10
 
 # Background
 GROUND_HEIGHT = 100
