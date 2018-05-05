@@ -1,6 +1,7 @@
 import pygame
 from display.constants import *
 from display.characters import ZUCC, Human
+from display.background import Background
 
 pygame.init()
 
@@ -37,7 +38,7 @@ while game_playing:
 
     sprites.update()
 
-    screen.fill(BACKGROUND)
+    Background.render(screen)
 
     sprites.draw(screen)
 
