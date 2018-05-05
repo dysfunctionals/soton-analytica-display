@@ -1,5 +1,6 @@
 import pygame
 import os
+from display.constants import *
 
 
 class Character(pygame.sprite.Sprite):
@@ -13,7 +14,7 @@ class Character(pygame.sprite.Sprite):
 
         # Initial Position
         self.rect.x = 0
-        self.rect.y = 0
+        self.rect.y = screen_height - self.getSize()[1] - GROUND_HEIGHT + 10
 
         # Initial Speed
         self.xSpeed = 0
@@ -77,7 +78,7 @@ class Human(Character):
 
         # Set x position
 
-        self.rect.x = 50
+        self.rect.x = screen_width - self.getSize()[0]
 
     def setupImage(self):
         human = pygame.image.load(os.path.join("assets", "human.png"))

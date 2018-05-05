@@ -1,8 +1,8 @@
 import pygame
-from display.colours import *
+from display.constants import *
 from display.characters import ZUCC, Human
+from display.background import Background
 from comms.CrowdInput import CrowdInput
-
 
 pygame.init()
 
@@ -16,10 +16,6 @@ input_type = "democracy"
 pygame.display.set_caption(game_title)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-clock = pygame.time.Clock()
-
-game_playing = True
-
 sprites = pygame.sprite.Group()
 
 ZUCC = ZUCC()
@@ -27,6 +23,12 @@ sprites.add(ZUCC)
 
 human = Human()
 sprites.add(human)
+
+bg = Background(screen)
+
+clock = pygame.time.Clock()
+
+game_playing = True
 
 input_source = CrowdInput(CrowdInput.standardAddress())
 
@@ -50,7 +52,7 @@ while game_playing:
 
     sprites.update()
 
-    screen.fill(BACKGROUND)
+    bg.render()
 
     sprites.draw(screen)
 
