@@ -34,6 +34,7 @@ class Character(pygame.sprite.Sprite):
 
         self.moveX(self.xSpeed)
         self.moveY(self.ySpeed)
+        self.makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate()
 
     def getSize(self):
         return self.image.get_size()
