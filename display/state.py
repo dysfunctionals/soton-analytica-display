@@ -204,7 +204,7 @@ class StateMachine:
 
             x = 400
             zucc_label = Text((x, 0), (37,55,140))
-            zucc_label.text = "zucc has your data:"
+            zucc_label.text = "ZUCC has absorbed:"
             zucc_label.font = zucc_label.make_font(['Lucida Console'], 36)
             zucc_label.render(screen)
             y = 38
@@ -216,9 +216,9 @@ class StateMachine:
                     zucc_data.render(screen)
                     y += 38
 
-            x = screen_width - 200
+            x = screen_width - 300
             user_label = Text((x, 0), (54,125,33))
-            user_label.text = "user data:"
+            user_label.text = "Your remaining info:"
             user_label.font = zucc_label.make_font(['Lucida Console'], 36)
             user_label.render(screen)
             y = 38
@@ -232,7 +232,7 @@ class StateMachine:
 
             # Show countdown to GDPR
             if day_past < 20:
-                day_past = (pygame.time.get_ticks() - start_ticks) / 4500
+                day_past = (pygame.time.get_ticks() - start_ticks) / 9000
             else:
                 return StateCode.HUMAN_WIN
             countdown_gdpr = Text((screen_width / 2 - 100, 0), (255,255,255))
