@@ -192,12 +192,7 @@ class StateMachine:
             bg.render()
 
             # Show player data
-            data = {
-                'name': True,
-                'DOB': True,
-                'address': True,
-                'contact': True
-            }
+            data = data_manager.getRemaining()
 
             x = 400
             zucc_label = Text((x, 0), (37,55,140))
