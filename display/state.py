@@ -200,6 +200,10 @@ class StateMachine:
             countdown_gdpr.font = countdown_gdpr.make_font(['Lucida Console'], 36)
             countdown_gdpr.render(screen)
 
+            # Show progress bar
+            pygame.draw.rect(screen, (255,255,255), pygame.Rect(screen_width / 2 - 100,48, 240 * (day_past/20),10))
+            pygame.draw.rect(screen, (128,128,128), pygame.Rect(screen_width / 2 - 100,48,240,10), 1)
+
             sprites.draw(screen)
 
             pygame.display.flip()
