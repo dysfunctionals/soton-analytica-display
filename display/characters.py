@@ -9,7 +9,6 @@ class Character(pygame.sprite.Sprite):
 
         super().__init__()
 
-        self.char_name = "default"
         self.currentStage = 0
         self.setupImage()
         self.rect = self.image.get_rect()
@@ -47,7 +46,7 @@ class Character(pygame.sprite.Sprite):
 
     def makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate(self):
         print(CHARSTATES)
-        currentChar_state = CHARSTATES['chars'][self.char_name]['states'][self.currentStage]
+        currentChar_state = CHARSTATES['chars'][type(self).__name__]['states'][self.currentStage]
 
         self.collision_rect.y = self.rect.y + (480 - currentChar_state['height']*PIXEL_MULTIPLIER)
         self.collision_rect.x = self.rect.x + (160 - currentChar_state['width']*(PIXEL_MULTIPLIER/2))
@@ -62,8 +61,6 @@ class ZUCC(Character):
         self.stages.sort()
 
         super().__init__()
-
-        self.char_name = "zucc"
 
         # Set x position
 
@@ -91,8 +88,6 @@ class Human(Character):
     def __init__(self):
 
         super().__init__()
-
-        self.char_name = "human"
 
         # Set x position
 

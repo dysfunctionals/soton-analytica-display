@@ -1,5 +1,5 @@
 chars:
-  zucc:
+  ZUCC:
     states:
       0:
         width: 14
@@ -10,7 +10,7 @@ chars:
       2:
         width: 30
         height: 44
-  human:
+  Human:
     states:
       0:
         width: 16
