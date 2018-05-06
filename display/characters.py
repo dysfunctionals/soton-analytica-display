@@ -49,8 +49,8 @@ class Character(pygame.sprite.Sprite):
         print(CHARSTATES)
         currentChar_state = CHARSTATES['chars'][self.char_name]['states'][self.currentStage]
 
-        self.collision_rect.y = self.rect.y + (480 - currentChar_state['height']*10)
-        self.collision_rect.x = self.rect.x + (160 - currentChar_state['width']*5)
+        self.collision_rect.y = self.rect.y + (480 - currentChar_state['height']*PIXEL_MULTIPLIER)
+        self.collision_rect.x = self.rect.x + (160 - currentChar_state['width']*(PIXEL_MULTIPLIER/2))
         self.collision_rect.width = currentChar_state['width']
         self.collision_rect.height = currentChar_state['height']
 
