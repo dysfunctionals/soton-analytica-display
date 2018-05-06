@@ -4,6 +4,7 @@ from display.characters import ZUCC, Human
 from display.background import Background
 from comms.InputEvent import InputEvent
 from threading import Thread
+from display.state import State
 
 import argparse
 
@@ -15,57 +16,7 @@ pygame.init()
 pygame.display.set_caption(game_title)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-sprites = pygame.sprite.Group()
 
-ZUCC = ZUCC()
-sprites.add(ZUCC)
-
-human = Human()
-sprites.add(human)
-
-bg = Background(screen)
-
-clock = pygame.time.Clock()
-
-game_playing = True
-
-if not args.keyboard:
-    input_event = InputEvent(game_playing)
-    input_thread = Thread(target = input_event.run)
-    input_thread.start()
-
-while game_playing:
-
-    for event in pygame.event.get():
-
-        if event.type == pygame.QUIT:
-            game_playing = False
-
-        if args.keyboard:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_e:
-                    ZUCC.evolve()
-
-    if not args.keyboard:
-        if event.type == GETINPUT:
-            ZUCC.ySpeed = event.zucc
-            human.ySpeed = event.human
-    else:
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
-            ZUCC.ySpeed = -3
-        elif keys[pygame.K_DOWN]:
-            ZUCC.ySpeed = 3
-        else:
-            ZUCC.ySpeed = 0
-
-    sprites.update()
-
-    bg.render()
-
-    sprites.draw(screen)
-
-    pygame.display.flip()
-    clock.tick(60)
-
-pygame.quit()
+state = State(screen, args.keyboard)
+state.playIntro()
+state.playGame()

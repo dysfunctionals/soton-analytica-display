@@ -1,0 +1,31 @@
+buildings:
+  bldg_0.png:
+    offset: 10
+    unit: 7
+    width: 20
+    height: 80
+  bldg_1.png:
+    offset: 20
+    unit: 12
+    width: 20
+    height: 80
+  bldg_2.png:
+    offset: 10
+    unit: 7
+    width: 20
+    height: 80
+  bldg_3.png:
+    offset: 10
+    unit: 6
+    width: 20
+    height: 80
+roads:
+  road_0.png:
+    width: 108
+    height: 10
+  road_1.png:
+    width: 108
+    height: 10
+  road_2.png:
+    width: 108
+    height: 10
