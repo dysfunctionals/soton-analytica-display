@@ -16,8 +16,10 @@ class DataManager:
     def pickup(self, data):
         try:
             self.dataRemaining.remove(data)
+            return len(self.dataRemaining) == 0
+
         except ValueError:
-            pass
+            return True;
 
     def getRemaining(self):
         state = dict()

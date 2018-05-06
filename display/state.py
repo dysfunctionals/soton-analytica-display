@@ -165,8 +165,7 @@ class StateMachine:
                             
                     if sprite.type == 'data' and sprite.rect.colliderect(zucc.collision_rect):
                         sprite.kill()
-                        data_manager.pickup(sprite.data)
-                        if sprite.data == None:
+                        if data_manager.pickup(sprite.data):
                             return StateCode.ZUCC_WIN
 
                     if sprite.type == 'power_size' and sprite.rect.colliderect(human.collision_rect):
