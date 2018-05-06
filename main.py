@@ -2,7 +2,8 @@ import pygame
 from display.constants import *
 from display.characters import ZUCC, Human
 from display.background import Background
-from comms.CrowdInput import CrowdInput
+from comms.InputEvent import InputEvent
+from threading import Thread
 
 import argparse
 
@@ -28,7 +29,10 @@ clock = pygame.time.Clock()
 
 game_playing = True
 
-input_source = CrowdInput(default_address)
+if not args.keyboard:
+    input_event = InputEvent(game_playing)
+    input_thread = Thread(target = input_event.run)
+    input_thread.start()
 
 while game_playing:
 
@@ -43,9 +47,9 @@ while game_playing:
                     ZUCC.evolve()
 
     if not args.keyboard:
-        movement = input_source.democracy(input_valid_time_seconds)
-        ZUCC.ySpeed = movement['zucc']
-        human.ySpeed = movement['user']
+        if event.type == GETINPUT:
+            ZUCC.ySpeed = event.zucc
+            human.ySpeed = event.human
     else:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
