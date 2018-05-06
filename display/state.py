@@ -126,6 +126,7 @@ class StateMachine:
         start_ticks = pygame.time.get_ticks()
         day_past = 0
 
+        evolveTicker = False
         while game_playing:
 
             for event in pygame.event.get():
@@ -167,6 +168,10 @@ class StateMachine:
                         sprite.kill()
                         if data_manager.pickup(sprite.data):
                             return StateCode.ZUCC_WIN
+                        elif evolveTicker:
+                            zucc.evolve()
+                        else:
+                            evolveTicker = True
 
                     if sprite.type == 'power_size' and sprite.rect.colliderect(human.collision_rect):
                         sprite.kill()
