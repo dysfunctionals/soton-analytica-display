@@ -1,7 +1,7 @@
 import pygame, os, math, random
 
-
 from display.constants import *
+
 
 class Background:
 
@@ -29,6 +29,10 @@ class Background:
             self.add_building(q + self.building_width)
 
         self.screen.fill(BACKGROUND)
+
+        logo = pygame.image.load(os.path.join("assets", "logos", "game.png"))
+        logo = pygame.transform.scale(logo, (400, 300))
+        self.screen.blit(logo, (0, 0))
 
         self.sprites.draw(self.screen)
 
