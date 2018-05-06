@@ -19,7 +19,7 @@ GROUND_HEIGHT = 100
 
 # Input
 default_address = "http://10.9.174.43/data"
-input_valid_time_seconds = 3
+input_valid_time_seconds = 1
 input_update_interval = 0.25
 GETINPUT = USEREVENT+2
 
