@@ -1,10 +1,6 @@
 import pygame
 from display.constants import *
-from display.characters import ZUCC, Human
-from display.background import Background
-from comms.InputEvent import InputEvent
-from threading import Thread
-from display.state import State
+from display.state import StateMachine, StateCode
 
 import argparse
 
@@ -17,6 +13,19 @@ pygame.display.set_caption(game_title)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 
-state = State(screen, args.keyboard)
-state.playIntro()
-state.playGame()
+state = StateMachine()
+
+
+while state.state != StateCode.END:
+
+    if state.state == StateCode.MENU:
+        state.state = StateMachine.playMenu(screen)
+    elif state.state == StateCode.INTRO:
+        state.state = StateMachine.playIntro(screen)
+    elif state.state == StateCode.PLAYING:
+        state.state = StateMachine.playGame(screen, args.keyboard)
+    else:
+        raise EnvironmentError
+
+
+pygame.quit()
