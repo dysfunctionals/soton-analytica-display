@@ -45,7 +45,6 @@ class Character(pygame.sprite.Sprite):
         self.rect.y += amount
 
     def makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate(self):
-        print(CHARSTATES)
         currentChar_state = CHARSTATES['chars'][type(self).__name__]['states'][self.currentStage]
 
         self.collision_rect.y = self.rect.y + (480 - currentChar_state['height']*PIXEL_MULTIPLIER)
