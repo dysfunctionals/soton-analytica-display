@@ -7,90 +7,81 @@ from comms.InputEvent import InputEvent
 from threading import Thread
 
 
-class State:
-    def __init__(self, screen, keyboard):
-        self.screen = screen
-        self.keyboard = keyboard
-        self.stateCode = StateCode.MENU
-        # do menu
-    
-    def playIntro(self):
-        if self.stateCode == StateCode.MENU:
-            self.stateCode = StateCode.INTRO
-            # do intro
-        else:
-            raise EnvironmentError
+class StateMachine:
 
-    def playGame(self):
-        if self.stateCode == StateCode.INTRO:
-            self.stateCode = StateCode.PLAYING
-            sprites = pygame.sprite.Group()
+    def __init__(self):
 
-            zucc = ZUCC()
-            sprites.add(zucc)
+        self.state = StateCode.MENU  # Set initial state
 
-            human = Human()
-            sprites.add(human)
+    @staticmethod
+    def playMenu(screen):
+        return StateCode.INTRO
 
-            bg = Background(self.screen)
+    @staticmethod
+    def playIntro(screen):
+        return StateCode.PLAYING
 
-            clock = pygame.time.Clock()
+    @staticmethod
+    def playGame(screen, keyboard):
 
-            game_playing = True
+        sprites = pygame.sprite.Group()
 
-            if not self.keyboard:
-                input_event = InputEvent(game_playing)
-                input_thread = Thread(target=input_event.run)
-                input_thread.start()
+        zucc = ZUCC()
+        sprites.add(zucc)
 
-            while game_playing:
+        human = Human()
+        sprites.add(human)
 
-                for event in pygame.event.get():
+        bg = Background(screen)
 
-                    if event.type == pygame.QUIT:
-                        game_playing = False
+        clock = pygame.time.Clock()
 
-                    if self.keyboard:
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_e:
-                                zucc.evolve()
-                    else:
-                        if event.type == GETINPUT:
-                            zucc.ySpeed = event.zucc
-                            human.ySpeed = event.human
+        game_playing = True
 
-                if self.keyboard:
-                    keys = pygame.key.get_pressed()
-                    if keys[pygame.K_UP]:
-                        zucc.ySpeed = -3
-                    elif keys[pygame.K_DOWN]:
-                        zucc.ySpeed = 3
-                    else:
-                        zucc.ySpeed = 0
+        if not keyboard:
+            input_event = InputEvent(game_playing)
+            input_thread = Thread(target=input_event.run)
+            input_thread.start()
 
-                sprites.update()
+        while game_playing:
 
-                bg.render()
+            for event in pygame.event.get():
 
-                sprites.draw(self.screen)
+                if event.type == pygame.QUIT:
+                    game_playing = False
 
-                pygame.display.flip()
-                clock.tick(60)
+                if keyboard:
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_e:
+                            zucc.evolve()
+                else:
+                    if event.type == GETINPUT:
+                        zucc.ySpeed = event.zucc
+                        human.ySpeed = event.human
 
-            self.endGame()                
-        else:
-            raise EnvironmentError
+            if keyboard:
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_UP]:
+                    zucc.ySpeed = -3
+                elif keys[pygame.K_DOWN]:
+                    zucc.ySpeed = 3
+                else:
+                    zucc.ySpeed = 0
 
-    def endGame(self):
-        if self.stateCode == StateCode.PLAYING:
-            self.stateCode = StateCode.DONE
-            pygame.quit()
-        else:
-            raise EnvironmentError
+            sprites.update()
+
+            bg.render()
+
+            sprites.draw(screen)
+
+            pygame.display.flip()
+            clock.tick(60)
+
+        return StateCode.END
 
 
 class StateCode(Enum):
     MENU = 1
     INTRO = 2
     PLAYING = 3
-    DONE = 4
+    END = 4
