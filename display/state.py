@@ -10,6 +10,7 @@ from display.menu import Menu
 from display.statecode import StateCode
 from display.projectilemaker import ProjectileMaker
 from display.datamanager import DataManager
+from display.particles import Particle
 from comms.InputEvent import InputEvent
 from threading import Thread
 import random
@@ -186,6 +187,13 @@ class StateMachine:
             if(random.randrange(0, 1500) == 1):
                 power = Projectile('power_size', random.choice( [random.randrange(-15, -5), random.randrange(5, 15)] ), random.randrange(50, 300), random.randrange(2, 12), 4, 'power_size', False, screen_width / 2, screen_height / 2)
                 sprites.add(power)
+                for p in Particle.makeParticleFamily(25, screen_width / 2, screen_height / 2, 'gold'):
+                    sprites.add(p)
+
+            for p in Particle.makeParticleFamily(5, human.collision_rect.x + human.collision_rect.width/2 - 20, human.collision_rect.y + human.collision_rect.height, 'orange'):
+                sprites.add(p)
+            for p in Particle.makeParticleFamily(5, zucc.collision_rect.x + zucc.collision_rect.width/2 - 20, zucc.collision_rect.y + zucc.collision_rect.height, 'facebook'):
+                sprites.add(p)
 
             sprites.update()
 
