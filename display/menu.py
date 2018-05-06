@@ -4,6 +4,7 @@ import pygame
 from display.background import Background
 from display.statecode import StateCode
 from display.constants import *
+from display.text import Text
 
 
 class Menu:
@@ -12,6 +13,10 @@ class Menu:
         self.screen = screen
 
     def run(self):
+        text = Text((0, 0), (0, 0, 0))
+        text.text = "Press any key to begin..."
+        text.render(self.screen)
+
         bg = Background(self.screen, show_logo=False)
 
         clock = pygame.time.Clock()
@@ -19,6 +24,9 @@ class Menu:
         bg.render()
 
         self.draw_logo()
+
+        text.pos = ((screen_width - text.width()) / 2, 800 - text.height() - 20)
+        text.render(self.screen)
 
         menu_loop = True
         while menu_loop:

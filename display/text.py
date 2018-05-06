@@ -9,7 +9,7 @@ class Text():
     def __init__(self, pos, colour):
         self.pos = pos
         self.colour = colour
-        self.font = self.make_font(['ubuntucondensed','carlito','lato','arial'],16)
+        self.font = self.make_font(['monospace'], 64)
         self.text = ""
 
     def render(self,screen):
