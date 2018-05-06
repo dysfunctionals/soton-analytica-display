@@ -38,3 +38,6 @@ class Projectile(pygame.sprite.Sprite):
 
         if self.oscillate_height != 0:
             self.rect.y = self.default_y + math.floor(math.sin((self.rect.x * self.oscillate_rate / screen_width) * 2 * math.pi) * self.oscillate_height)
+
+        if self.x < -1000 or self.x > screen_width+1000:
+            self.kill()
