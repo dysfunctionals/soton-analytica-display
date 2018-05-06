@@ -7,4 +7,4 @@ class ProjectileMaker:
         while True:
             projectileEvent = pygame.event.Event(SENDPROJECTILE)
             pygame.event.post(projectileEvent)
-            sleep(7)
+            sleep(5)
