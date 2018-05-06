@@ -6,6 +6,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Z U C C will consume Y O U.")
 parser.add_argument("--keyboard", help="Use the keyboard to control Z U C C", action='store_true')
+parser.add_argument("--nointro", help="L O R D  Z U C C requires you to view the intro", action='store_true')
 args = parser.parse_args()
 
 pygame.init()
@@ -17,15 +18,19 @@ state = StateMachine()
 
 
 while state.state != StateCode.END:
-
-    if state.state == StateCode.MENU:
-        state.state = StateMachine.playMenu(screen)
-    elif state.state == StateCode.INTRO:
-        state.state = StateMachine.playIntro(screen)
-    elif state.state == StateCode.PLAYING:
-        state.state = StateMachine.playGame(screen, args.keyboard)
+    if not args.nointro:
+        if state.state == StateCode.LOGO:
+            state.state = StateMachine.playLogo(screen)
+        elif state.state == StateCode.MENU:
+            state.state = StateMachine.playMenu(screen)
+        elif state.state == StateCode.INTRO:
+            state.state = StateMachine.playIntro(screen)
+        elif state.state == StateCode.PLAYING:
+            state.state = StateMachine.playGame(screen, args.keyboard)
+        else:
+            raise EnvironmentError
     else:
-        raise EnvironmentError
+        state.state = StateMachine.playGame(screen, args.keyboard)
 
 
 pygame.quit()

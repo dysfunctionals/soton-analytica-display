@@ -1,4 +1,5 @@
 import pygame
+import os
 from display.constants import *
 from display.characters import ZUCC, Human
 from display.background import Background
@@ -9,12 +10,44 @@ from display.statecode import StateCode
 from comms.InputEvent import InputEvent
 from threading import Thread
 
+import time
+
 
 class StateMachine:
 
     def __init__(self):
 
-        self.state = StateCode.MENU  # Set initial state
+        self.state = StateCode.LOGO  # Set initial state
+
+    @staticmethod
+    def playLogo(screen):
+
+        screen.fill((0, 0, 0))
+
+        logo = pygame.image.load(os.path.join("assets", "logos", "team.png"))
+
+        logo = pygame.transform.scale(logo, (screen_width, screen_height))
+
+        logo.set_alpha(20)
+
+        screen.blit(logo, (0,0))
+
+        pygame.display.flip()
+
+        pygame.mixer.music.load(os.path.join("assets", "sounds", "theme.ogg"))
+        pygame.mixer.music.set_endevent(MUSIC_DEATH)
+        pygame.mixer.music.play()
+
+        waiting = True
+
+        while waiting:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return StateCode.END
+                elif event.type == MUSIC_DEATH:
+                    waiting = False
+
+        return StateCode.MENU
 
     @staticmethod
     def playMenu(screen):
