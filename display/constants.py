@@ -1,8 +1,16 @@
+import yaml
+
 BACKGROUND = (131, 175, 241)
+
+with open("assets/backgrounds/city/scroll/info.yml", "r") as file:
+    try:
+        BGINFO = yaml.load(file)
+    except yaml.YAMLError as exc:
+        print(exc)
 
 screen_width = 1920
 screen_height = 1080
-
+PIXEL_MULTIPLIER = 10
 
 # Background
 GROUND_HEIGHT = 100
@@ -10,8 +18,5 @@ GROUND_HEIGHT = 100
 # Input
 default_address = "http://10.9.174.43/data"
 input_valid_time_seconds = 3
-
-
-
 
 game_title = "Soton Analytica"

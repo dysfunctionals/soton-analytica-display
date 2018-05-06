@@ -1,0 +1,13 @@
+layers:
+  city:
+    scroll:
+      bldg_0.png:
+        offset: 10
+        unit: 7
+        width: 20
+        height: 80
+      bldg_1.png:
+        offset: 20
+        unit: 12
+        width: 20
+        height: 80
