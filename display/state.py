@@ -162,14 +162,11 @@ class StateMachine:
                         data = Projectile('data', random.randrange(-4, -8, -1), random.randrange(50, 100), random.randrange(1, 9), 5, 'data', False, human.collision_rect.x, human.collision_rect.y, data=personal_data)
                         sprites.add(data)
                         if personal_data == None:
-                            #zucc wins
-                            pass
+                            return StateCode.ZUCC_WIN
+                            
                     if sprite.type == 'data' and sprite.rect.colliderect(zucc.collision_rect):
                         sprite.kill()
-                        data_manager.pickup(sprite.data)
-                        if personal_data == None:
-                            #zucc wins
-                            pass
+
                     if sprite.type == 'power_size' and sprite.rect.colliderect(human.collision_rect):
                         sprite.kill()
                         Projectile.override = True
@@ -250,10 +247,53 @@ class StateMachine:
         return StateCode.END
 
     @staticmethod
-    def projectilesOnScreen(projectiles):
-        if len(projectiles) == 0:
-            return False;
-        for projectile in projectiles:
-            if projectile.onScreen():
-                return True;
-        return False;
+    def zucc_win(screen):
+        showWinner = True
+        
+        welcomeText = Text((550,400), (255,255,255))
+        welcomeText.text = "long live zucc"
+        welcomeText.font = welcomeText.make_font(['Lucida Console'], 128)
+
+        bg = Background(screen)
+        clock = pygame.time.Clock()
+        sprites = pygame.sprite.Group()
+
+        while showWinner:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return StateCode.END
+
+            bg.render()
+            welcomeText.render(screen)
+
+            sprites.draw(screen)
+            pygame.display.flip()
+            clock.tick(60)
+
+        return StateCode.END
+    
+    @staticmethod
+    def human_win(screen):
+        showWinner = True
+        
+        welcomeText = Text((550,400), (255,255,255))
+        welcomeText.text = "long live gdpr"
+        welcomeText.font = welcomeText.make_font(['Lucida Console'], 128)
+
+        bg = Background(screen)
+        clock = pygame.time.Clock()
+        sprites = pygame.sprite.Group()
+
+        while showWinner:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return StateCode.END
+
+            bg.render()
+            welcomeText.render(screen)
+
+            sprites.draw(screen)
+            pygame.display.flip()
+            clock.tick(60)
+
+        return StateCode.END

@@ -7,3 +7,5 @@ class StateCode(Enum):
     INTRO = 2
     PLAYING = 3
     END = 4
+    ZUCC_WIN = 5
+    HUMAN_WIN = 6
