@@ -3,6 +3,7 @@ from display.constants import *
 from display.characters import ZUCC, Human
 from display.background import Background
 from display.text import Text
+from display.projectiles import Projectile
 from display.menu import Menu
 from display.statecode import StateCode
 from comms.InputEvent import InputEvent
@@ -66,6 +67,18 @@ class StateMachine:
 
         human = Human()
         sprites.add(human)
+
+        i_like_this = Projectile('like', -6, 250, 2)
+        sprites.add(i_like_this)
+
+        b = Projectile('wa', 4, 117, 20)
+        sprites.add(b)
+
+        q = Projectile('ig', -8, 300, 7)
+        sprites.add(q)
+
+        z = Projectile('fb', 5, 27, 9)
+        sprites.add(z)
 
         bg = Background(screen)
 
