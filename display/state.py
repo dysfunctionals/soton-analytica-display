@@ -1,8 +1,9 @@
 import pygame
-from enum import Enum
 from display.constants import *
 from display.characters import ZUCC, Human
 from display.background import Background
+from display.menu import Menu
+from display.statecode import StateCode
 from comms.InputEvent import InputEvent
 from threading import Thread
 
@@ -15,7 +16,10 @@ class StateMachine:
 
     @staticmethod
     def playMenu(screen):
-        return StateCode.INTRO
+
+        menu = Menu(screen)
+
+        return menu.run()
 
     @staticmethod
     def playIntro(screen):
@@ -78,10 +82,3 @@ class StateMachine:
             clock.tick(60)
 
         return StateCode.END
-
-
-class StateCode(Enum):
-    MENU = 1
-    INTRO = 2
-    PLAYING = 3
-    END = 4
