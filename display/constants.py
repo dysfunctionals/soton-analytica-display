@@ -4,7 +4,7 @@ from pygame import USEREVENT
 
 BACKGROUND = (131, 175, 241)
 
-with open("assets/backgrounds/city/scroll/info.yml", "r") as file:
+with open("assets/backgrounds/city/scene.yml", "r") as file:
     try:
         BGINFO = yaml.load(file)
     except yaml.YAMLError as exc:
