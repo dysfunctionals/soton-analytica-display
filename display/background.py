@@ -20,13 +20,13 @@ class Background:
 
         self.screen.fill(BACKGROUND)
 
-        logo = pygame.image.load(os.path.join("assets", "logos", "game.png"))
-        logo = pygame.transform.scale(logo, (400, 300))
-        self.screen.blit(logo, (0, 0))
-
         self.distant_scroller.draw(self.screen)
         self.building_scroller.draw(self.screen)
         self.road_scroller.draw(self.screen)
+
+        logo = pygame.image.load(os.path.join("assets", "logos", "game.png"))
+        logo = pygame.transform.scale(logo, (400, 300))
+        self.screen.blit(logo, (0, 0))
 
 
 class Scroller(pygame.sprite.Group):
