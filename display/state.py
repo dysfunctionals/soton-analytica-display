@@ -9,6 +9,7 @@ from display.projectiles import Projectile
 from display.menu import Menu
 from display.statecode import StateCode
 from display.projectilemaker import ProjectileMaker
+from display.datamanager import DataManager
 from comms.InputEvent import InputEvent
 from threading import Thread
 import random
@@ -119,7 +120,7 @@ class StateMachine:
         projectile_thread = Thread(target=projectile_event.run)
         projectile_thread.start()
 
-        projectiles = list()
+        data_manager = DataManager()
 
         while game_playing:
 
@@ -131,7 +132,6 @@ class StateMachine:
                 if event.type == SENDPROJECTILE:
                     proj = Projectile(icons[random.randint(0,len(icons) - 1)], random.randint(1,5), random.randint(25, 300), random.randint(2 ,20), 5, 'app')
                     sprites.add(proj)
-                    projectiles.append(proj)
 
                 if keyboard:
                     if event.type == pygame.KEYDOWN:
@@ -155,10 +155,19 @@ class StateMachine:
                 if type(sprite).__name__ == "Projectile":
                     if sprite.type == 'app' and sprite.rect.colliderect(human.collision_rect):
                         sprite.kill()
-                        data = Projectile('data', random.randrange(-4, -8, -1), random.randrange(50, 100), random.randrange(1, 9), 5, 'data', False, human.collision_rect.x, human.collision_rect.y)
+                        personal_data = data_manager.drop()
+                        data = Projectile('data', random.randrange(-4, -8, -1), random.randrange(50, 100), random.randrange(1, 9), 5, 'data', False, human.collision_rect.x, human.collision_rect.y, data=personal_data)
                         sprites.add(data)
+                        if personal_data == None:
+                            #zucc wins
+                            pass
                     if sprite.type == 'data' and sprite.rect.colliderect(zucc.collision_rect):
                         sprite.kill()
+                        data_manager.pickup(sprite.data)
+                        if personal_data == None:
+                            #zucc wins
+                            pass
+
 
 
             sprites.update()
