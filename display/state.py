@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 from display.constants import *
 from display.characters import ZUCC, Human
 from display.background import Background
@@ -7,15 +8,47 @@ from display.text import Text
 from display.projectiles import Projectile
 from display.menu import Menu
 from display.statecode import StateCode
+from display.projectilemaker import ProjectileMaker
 from comms.InputEvent import InputEvent
 from threading import Thread
+import random
+
+import time
 
 
 class StateMachine:
-
     def __init__(self):
-
         self.state = StateCode.MENU  # Set initial state
+
+    @staticmethod
+    def playLogo(screen):
+
+        screen.fill((0, 0, 0))
+
+        logo = pygame.image.load(os.path.join("assets", "logos", "team.png"))
+
+        logo = pygame.transform.scale(logo, (screen_width, screen_height))
+
+        logo.set_alpha(20)
+
+        screen.blit(logo, (0,0))
+
+        pygame.display.flip()
+
+        pygame.mixer.music.load(os.path.join("assets", "sounds", "theme.ogg"))
+        pygame.mixer.music.set_endevent(MUSIC_DEATH)
+        pygame.mixer.music.play()
+
+        waiting = True
+
+        while waiting:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return StateCode.END
+                elif event.type == MUSIC_DEATH:
+                    waiting = False
+
+        return StateCode.MENU
 
     @staticmethod
     def playMenu(screen):
@@ -79,6 +112,12 @@ class StateMachine:
             input_event = InputEvent(game_playing)
             input_thread = Thread(target=input_event.run)
             input_thread.start()
+        
+        projectile_event = ProjectileMaker()
+        projectile_thread = Thread(target=projectile_event.run)
+        projectile_thread.start()
+
+        projectiles = list()
 
         while game_playing:
 
@@ -86,6 +125,11 @@ class StateMachine:
 
                 if event.type == pygame.QUIT:
                     game_playing = False
+
+                if event.type == SENDPROJECTILE:
+                    proj = Projectile(icons[random.randint(0,len(icons) - 1)], random.randint(1,5), random.randint(25, 300), random.randint(2 ,20))
+                    sprites.add(proj)
+                    projectiles.append(proj)
 
                 if keyboard:
                     if event.type == pygame.KEYDOWN:
@@ -125,3 +169,12 @@ class StateMachine:
             clock.tick(60)
 
         return StateCode.END
+
+    @staticmethod
+    def projectilesOnScreen(projectiles):
+        if len(projectiles) == 0:
+            return False;
+        for projectile in projectiles:
+            if projectile.onScreen():
+                return True;
+        return False;
