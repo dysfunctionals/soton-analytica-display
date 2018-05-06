@@ -2,7 +2,8 @@ import pygame
 from display.constants import *
 from display.characters import ZUCC, Human
 from display.background import Background
-from comms.CrowdInput import CrowdInput
+from comms.InputEvent import InputEvent
+from threading import Thread
 
 import argparse
 
@@ -28,7 +29,9 @@ clock = pygame.time.Clock()
 
 game_playing = True
 
-input_source = CrowdInput(default_address)
+input_event = InputEvent(game_playing)
+input_thread = Thread(target = input_event.run)
+input_thread.start()
 
 while game_playing:
 
@@ -36,6 +39,12 @@ while game_playing:
 
         if event.type == pygame.QUIT:
             game_playing = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_e:
+                ZUCC.evolve()
+        elif event.type == GETINPUT:
+            ZUCC.ySpeed = event.zucc
+            human.ySpeed = event.human
 
         if args.keyboard:
             if event.type == pygame.KEYDOWN:
