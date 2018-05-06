@@ -37,5 +37,5 @@ game_title = "Soton Analytica"
 
 user_url = "https://ecs.pizza"
 
-dataTypes = ['Address', "Name", "Message History", "Contacts", "Date of Birth", "Bank Account Number"]
+dataTypes = ['Address', "Name", "Message History", "Contacts", "Date of Birth", "Bank Account Number", "Genome"]
 icons = ['like', 'wa', 'ig']
