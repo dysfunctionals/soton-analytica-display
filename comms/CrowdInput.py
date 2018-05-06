@@ -1,5 +1,6 @@
 import requests
 import random
+from display.constants import move_speed
 
 class CrowdInput:    
     def __init__(self, address):
@@ -46,6 +47,6 @@ class CrowdInput:
             if total == 0:
                 move[player] = 0
             else:
-                move[player] = commandSum / total * 3
+                move[player] = commandSum / total * move_speed
         print(move)
         return move

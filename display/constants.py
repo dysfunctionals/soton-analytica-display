@@ -31,8 +31,11 @@ GETINPUT = USEREVENT+2
 SENDPROJECTILE = USEREVENT+4
 MUSIC_DEATH = USEREVENT+3
 
+move_speed = 5
+
 game_title = "Soton Analytica"
 
 user_url = "https://ecs.pizza"
 
 icons = ['like', 'wa', 'ig', 'fb']
+dataTypes = ['Address', "Name", "Message History"]
