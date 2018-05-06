@@ -53,6 +53,8 @@ class StateMachine:
     @staticmethod
     def playMenu(screen):
 
+        pygame.mixer.music.load(os.path.join("assets", "sounds", "music.mp3"))
+        pygame.mixer.music.play(-1)
         menu = Menu(screen)
 
         return menu.run()
