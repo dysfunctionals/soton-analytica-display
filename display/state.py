@@ -1,4 +1,5 @@
 import pygame
+import random
 from display.constants import *
 from display.characters import ZUCC, Human
 from display.background import Background
@@ -68,18 +69,6 @@ class StateMachine:
         human = Human()
         sprites.add(human)
 
-        i_like_this = Projectile('like', -6, 250, 2)
-        sprites.add(i_like_this)
-
-        b = Projectile('wa', 4, 117, 20)
-        sprites.add(b)
-
-        q = Projectile('ig', -8, 300, 7)
-        sprites.add(q)
-
-        z = Projectile('fb', 5, 27, 9)
-        sprites.add(z)
-
         bg = Background(screen)
 
         clock = pygame.time.Clock()
@@ -115,6 +104,16 @@ class StateMachine:
                     zucc.ySpeed = 3
                 else:
                     zucc.ySpeed = 0
+
+            for sprite in sprites:
+                if type(sprite).__name__ == "Projectile":
+                    if sprite.type == 'app' and sprite.rect.colliderect(human.collision_rect):
+                        sprite.kill()
+                        data = Projectile('data', random.randrange(-4, -8, -1), random.randrange(50, 100), random.randrange(1, 9), 5, 'data', False, human.collision_rect.x, human.collision_rect.y)
+                        sprites.add(data)
+                    if sprite.type == 'data' and sprite.rect.colliderect(zucc.collision_rect):
+                        sprite.kill()
+
 
             sprites.update()
 
