@@ -10,20 +10,23 @@ class Background:
 
         self.building_scroller = Scroller(Building, 6)
         self.road_scroller = Scroller(Road, 7 ,1080)
+        self.distant_scroller = Scroller(DistantBuilding, 3, 100)
 
     def render(self):
 
         self.building_scroller.update()
         self.road_scroller.update()
+        self.distant_scroller.update()
 
         self.screen.fill(BACKGROUND)
+
+        self.distant_scroller.draw(self.screen)
+        self.building_scroller.draw(self.screen)
+        self.road_scroller.draw(self.screen)
 
         logo = pygame.image.load(os.path.join("assets", "logos", "game.png"))
         logo = pygame.transform.scale(logo, (400, 300))
         self.screen.blit(logo, (0, 0))
-
-        self.building_scroller.draw(self.screen)
-        self.road_scroller.draw(self.screen)
 
 
 class Scroller(pygame.sprite.Group):
@@ -112,4 +115,22 @@ class Road(ScrollableSprite):
         self.rect = self.image.get_rect()
 
         self.rect.y = screen_height - GROUND_HEIGHT
+        self.rect.x = xpos
+
+
+class DistantBuilding(ScrollableSprite):
+
+    def __init__(self, xpos):
+        super().__init__()
+
+        self.width = 100
+        self.height = random.randint(100, 800)
+
+        self.image = pygame.Surface([self.width, self.height])
+
+        self.image.fill((60, 60, 60))
+
+        self.rect = self.image.get_rect()
+
+        self.rect.y = screen_height - GROUND_HEIGHT - self.height
         self.rect.x = xpos
