@@ -1,0 +1,17 @@
+chars:
+  ZUCC:
+    states:
+      0:
+        width: 14
+        height: 29
+      1:
+        width: 28
+        height: 35
+      2:
+        width: 30
+        height: 44
+  Human:
+    states:
+      0:
+        width: 16
+        height: 32

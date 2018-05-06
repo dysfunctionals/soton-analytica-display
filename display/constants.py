@@ -10,6 +10,12 @@ with open("assets/backgrounds/city/scene.yml", "r") as file:
     except yaml.YAMLError as exc:
         print(exc)
 
+with open("assets/charstates.yaml", "r") as file:
+    try:
+        CHARSTATES = yaml.load(file)
+    except yaml.YAMLError as exc:
+        print(exc)
+
 screen_width = 1920
 screen_height = 1080
 PIXEL_MULTIPLIER = 10

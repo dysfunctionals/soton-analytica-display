@@ -9,6 +9,7 @@ class Character(pygame.sprite.Sprite):
 
         super().__init__()
 
+        self.currentStage = 0
         self.setupImage()
         self.rect = self.image.get_rect()
 
@@ -19,6 +20,8 @@ class Character(pygame.sprite.Sprite):
         # Initial Speed
         self.xSpeed = 0
         self.ySpeed = 0
+
+        self.collision_rect = pygame.Rect(self.rect.x, self.rect.y, 320, 480)
 
     def setupImage(self):
 
@@ -41,12 +44,18 @@ class Character(pygame.sprite.Sprite):
     def moveY(self, amount):
         self.rect.y += amount
 
+    def makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate(self):
+        currentChar_state = CHARSTATES['chars'][type(self).__name__]['states'][self.currentStage]
+
+        self.collision_rect.y = self.rect.y + (480 - currentChar_state['height']*PIXEL_MULTIPLIER)
+        self.collision_rect.x = self.rect.x + (160 - currentChar_state['width']*(PIXEL_MULTIPLIER/2))
+        self.collision_rect.width = currentChar_state['width']
+        self.collision_rect.height = currentChar_state['height']
 
 class ZUCC(Character):
 
     def __init__(self):
 
-        self.currentStage = 0
         self.stages = os.listdir("assets/zucc/")
         self.stages.sort()
 
@@ -55,6 +64,8 @@ class ZUCC(Character):
         # Set x position
 
         self.rect.x = 50
+
+        self.makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate()
 
     def setupImage(self):
         self.drawImage()
@@ -68,6 +79,7 @@ class ZUCC(Character):
     def evolve(self):
 
         self.currentStage += 1
+        self.makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate()
         self.drawImage()
 
 class Human(Character):
@@ -79,6 +91,7 @@ class Human(Character):
         # Set x position
 
         self.rect.x = screen_width - self.getSize()[0]
+        self.makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate()
 
     def setupImage(self):
         human = pygame.image.load(os.path.join("assets", "human.png"))
