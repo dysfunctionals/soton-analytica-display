@@ -6,6 +6,8 @@ import math
 
 class Projectile(pygame.sprite.Sprite):
 
+    pixel_scale = 5
+
     def __init__(self, icon, velocity, oscillate_height = 0, oscillate_rate = 1):
 
         super().__init__()
@@ -29,7 +31,7 @@ class Projectile(pygame.sprite.Sprite):
 
     def draw_image(self):
         ifile = pygame.image.load(os.path.join("assets", "items", self.icon + ".png"))
-        self.image = pygame.transform.scale(ifile, (150, 150))
+        self.image = pygame.transform.scale(ifile, (15*Projectile.pixel_scale, 15*Projectile.pixel_scale))
 
     def update(self):
         self.rect.x += self.velocity
