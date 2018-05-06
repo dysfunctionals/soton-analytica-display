@@ -167,8 +167,25 @@ class StateMachine:
                         if personal_data == None:
                             #zucc wins
                             pass
+                    if sprite.type == 'power_size' and sprite.rect.colliderect(human.collision_rect):
+                        sprite.kill()
+                        Projectile.override = True
+                        Projectile.override_value = 2
+                        Projectile.override_frames = 500
+                    if sprite.type == 'power_size' and sprite.rect.colliderect(zucc.collision_rect):
+                        sprite.kill()
+                        Projectile.override = True
+                        Projectile.override_value = 8
+                        Projectile.override_frames = 500
 
+            if(Projectile.override):
+                Projectile.override_frames-=1
+                if(Projectile.override_frames == 0):
+                    Projectile.override = False
 
+            if(random.randrange(0, 1500) == 1):
+                power = Projectile('power_size', random.choice( [random.randrange(-15, -5), random.randrange(5, 15)] ), random.randrange(50, 300), random.randrange(2, 12), 4, 'power_size', False, screen_width / 2, screen_height / 2)
+                sprites.add(power)
 
             sprites.update()
 
