@@ -39,7 +39,8 @@ class Character(pygame.sprite.Sprite):
         self.rect.x += amount
 
     def moveY(self, amount):
-        self.rect.y += amount
+        if not ((amount < 0 and self.rect.y < 10) or (amount > 0 and self.rect.y > screen_height - self.getSize()[1] - 10)):
+            self.rect.y += amount
 
 
 class ZUCC(Character):
