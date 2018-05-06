@@ -11,7 +11,7 @@ class Background:
         self.show_logo = show_logo
 
         self.building_scroller = Scroller(Building, 6)
-        self.road_scroller = Scroller(Road, 7 ,1080)
+        self.road_scroller = Scroller(Road, 7, 1080)
         self.distant_scroller = Scroller(DistantBuilding, 3, 100)
 
     def render(self):
