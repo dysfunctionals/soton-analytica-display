@@ -1,7 +1,7 @@
 import pygame, os, math, random
 
-from display.constants import *
 
+from display.constants import *
 
 class Background:
 
@@ -26,7 +26,7 @@ class Background:
             for buildong in self.sprites:
                 if buildong.rect.x > q:
                     q = buildong.rect.x
-            self.add_building(q + self.building_width, width=self.building_width)
+            self.add_building(q + self.building_width)
 
         self.screen.fill(BACKGROUND)
 
@@ -39,7 +39,7 @@ class Background:
 
         for i in range(1, self.building_amount):
 
-            self.add_building(i * self.building_width, width=self.building_width)
+            self.add_building(i * self.building_width)
 
     def add_building(self, *args, **kwargs):
 
@@ -49,7 +49,7 @@ class Background:
 
 class Building(pygame.sprite.Sprite):
 
-    def __init__(self, xpos, width=100):
+    def __init__(self, xpos):
 
         super().__init__()
 
@@ -57,6 +57,8 @@ class Building(pygame.sprite.Sprite):
         self.image_info = BGINFO["layers"]["city"]["scroll"][self.image_name]
 
         image = pygame.image.load(os.path.join("assets", "backgrounds", "city", "scroll", self.image_name))
+
+        image = pygame.transform.flip(image, bool(random.getrandbits(1)), False)
 
         self.num_stories = random.randint(1, math.floor((self.image_info["height"] - self.image_info["offset"]) / self.image_info["offset"]))
 
