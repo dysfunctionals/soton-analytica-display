@@ -127,7 +127,7 @@ class StateMachine:
                     game_playing = False
 
                 if event.type == SENDPROJECTILE:
-                    proj = Projectile(icons[random.randint(0,len(icons) - 1)], random.randint(1,5), random.randint(25, 300), random.randint(2 ,20))
+                    proj = Projectile(icons[random.randint(0,len(icons) - 1)], random.randint(1,5), random.randint(25, 300), random.randint(2 ,20), 5, 'app')
                     sprites.add(proj)
                     projectiles.append(proj)
 
