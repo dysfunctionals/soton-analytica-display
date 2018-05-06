@@ -231,6 +231,8 @@ class StateMachine:
             # Show countdown to GDPR
             if day_past < 20:
                 day_past = (pygame.time.get_ticks() - start_ticks) / 4500
+            else:
+                return StateCode.HUMAN_WIN
             countdown_gdpr = Text((screen_width / 2 - 100, 0), (255,255,255))
             countdown_gdpr.text = '{:02d} days till GDPR'.format(int(20 - day_past))
             countdown_gdpr.font = countdown_gdpr.make_font(['Lucida Console'], 36)
