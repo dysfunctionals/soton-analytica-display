@@ -201,8 +201,8 @@ class StateMachine:
             countdown_gdpr.render(screen)
 
             # Show progress bar
-            pygame.draw.rect(screen, (255,255,255), pygame.Rect(screen_width / 2 - 100,48, 240 * (day_past/20),10))
-            pygame.draw.rect(screen, (128,128,128), pygame.Rect(screen_width / 2 - 100,48,240,10), 1)
+            pygame.draw.rect(screen, (75,102,173), pygame.Rect(screen_width / 2 - 200,48,400,10))
+            pygame.draw.rect(screen, (255,255,255), pygame.Rect(screen_width / 2 - 200,48, 400 * (day_past/20),10))
 
             sprites.draw(screen)
 
