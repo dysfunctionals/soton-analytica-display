@@ -170,6 +170,7 @@ class StateMachine:
                             return StateCode.ZUCC_WIN
                         elif evolveTicker:
                             zucc.evolve()
+                            evolveTicker = False
                         else:
                             evolveTicker = True
 
