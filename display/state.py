@@ -164,7 +164,9 @@ class StateMachine:
                     if sprite.type == 'data' and sprite.rect.colliderect(zucc.collision_rect):
                         sprite.kill()
                         data_manager.pickup(sprite.data)
-                        print("picked up " + personal_data)
+                        if personal_data == None:
+                            #zucc wins
+                            pass
 
 
 
