@@ -33,4 +33,6 @@ MUSIC_DEATH = USEREVENT+3
 
 game_title = "Soton Analytica"
 
+user_url = "https://ecs.pizza"
+
 icons = ['like', 'wa', 'ig', 'fb']

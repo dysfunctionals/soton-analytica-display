@@ -13,9 +13,13 @@ class Menu:
         self.screen = screen
 
     def run(self):
-        text = Text((0, 0), (0, 0, 0))
-        text.text = "Press any key to begin..."
-        text.render(self.screen)
+        ktext = Text((0, 0), (0, 0, 0))
+        ktext.text = "Press any key to begin..."
+        ktext.render(self.screen)
+
+        utext = Text((0, 0), (0, 0, 0))
+        utext.text = "Connect to " + user_url
+        utext.render(self.screen)
 
         bg = Background(self.screen, show_logo=False)
 
@@ -25,8 +29,11 @@ class Menu:
 
         self.draw_logo()
 
-        text.pos = ((screen_width - text.width()) / 2, 800 - text.height() - 20)
-        text.render(self.screen)
+        utext.pos = ((screen_width - utext.width()) / 2, 800 - utext.height() * 2 - 20)
+        utext.render(self.screen)
+
+        ktext.pos = ((screen_width - ktext.width()) / 2, 800 - ktext.height() - 20)
+        ktext.render(self.screen)
 
         menu_loop = True
         while menu_loop:
