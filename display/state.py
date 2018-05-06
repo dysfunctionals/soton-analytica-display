@@ -93,7 +93,7 @@ class StateMachine:
             clock.tick(60)
 
         return StateCode.PLAYING
-
+        
     @staticmethod
     def playGame(screen, keyboard):
 
@@ -121,6 +121,9 @@ class StateMachine:
         projectile_thread.start()
 
         data_manager = DataManager()
+
+        start_ticks = pygame.time.get_ticks()
+        day_past = 0
 
         while game_playing:
 
@@ -190,6 +193,54 @@ class StateMachine:
             sprites.update()
 
             bg.render()
+
+            # Show player data
+            data = {
+                'name': True,
+                'DOB': True,
+                'address': True,
+                'contact': True
+            }
+
+            x = 400
+            zucc_label = Text((x, 0), (37,55,140))
+            zucc_label.text = "zucc has your data:"
+            zucc_label.font = zucc_label.make_font(['Lucida Console'], 36)
+            zucc_label.render(screen)
+            y = 38
+            for data_name, is_good in data.items():
+                if not is_good:
+                    zucc_data = Text((x, y), (255,255,255))
+                    zucc_data.text = data_name
+                    zucc_data.font = zucc_data.make_font(['Lucida Console'], 36)
+                    zucc_data.render(screen)
+                    y += 38
+
+            x = screen_width - 200
+            user_label = Text((x, 0), (54,125,33))
+            user_label.text = "user data:"
+            user_label.font = zucc_label.make_font(['Lucida Console'], 36)
+            user_label.render(screen)
+            y = 38
+            for data_name, is_good in data.items():
+                if is_good:
+                    user_data = Text((x, y), (255, 255, 255))
+                    user_data.text = data_name
+                    user_data.font = user_data.make_font(['Lucida Console'], 36)
+                    user_data.render(screen)
+                    y += 38
+
+            # Show countdown to GDPR
+            if day_past < 20:
+                day_past = (pygame.time.get_ticks() - start_ticks) / 4500
+            countdown_gdpr = Text((screen_width / 2 - 100, 0), (255,255,255))
+            countdown_gdpr.text = '{:02d} days till GDPR'.format(int(20 - day_past))
+            countdown_gdpr.font = countdown_gdpr.make_font(['Lucida Console'], 36)
+            countdown_gdpr.render(screen)
+
+            # Show progress bar
+            pygame.draw.rect(screen, (75,102,173), pygame.Rect(screen_width / 2 - 200,48,400,10))
+            pygame.draw.rect(screen, (255,255,255), pygame.Rect(screen_width / 2 - 200,48, 400 * (day_past/20),10))
 
             sprites.draw(screen)
 
