@@ -7,26 +7,12 @@ class Background:
 
     def __init__(self, screen):
         self.screen = screen
-        self.sprites = pygame.sprite.Group()
 
-        self.speed = 6
-
-        self.building_width = 200
-
-        self.building_amount = math.ceil(screen_width / self.building_width) * 2
-
-        self.generate_buildings()
+        self.building_scroller = Scroller(Building, 6)
 
     def render(self):
 
-        self.sprites.update(self.speed)
-
-        if len(self.sprites) < self.building_amount:
-            q = -99999
-            for buildong in self.sprites:
-                if buildong.rect.x > q:
-                    q = buildong.rect.x
-            self.add_building(q + self.building_width)
+        self.building_scroller.update()
 
         self.screen.fill(BACKGROUND)
 
@@ -34,24 +20,54 @@ class Background:
         logo = pygame.transform.scale(logo, (400, 300))
         self.screen.blit(logo, (0, 0))
 
-        self.sprites.draw(self.screen)
+        self.building_scroller.draw(self.screen)
 
-        zucc = pygame.image.load(os.path.join("assets", "backgrounds", "city", "ground.png"))
-        self.screen.blit(zucc, (0, screen_height - GROUND_HEIGHT))
-
-    def generate_buildings(self):
-
-        for i in range(1, self.building_amount):
-
-            self.add_building(i * self.building_width)
-
-    def add_building(self, *args, **kwargs):
-
-        building = Building(*args, **kwargs)
-        self.sprites.add(building)
+        road = pygame.image.load(os.path.join("assets", "backgrounds", "city", "road_0.png"))
+        road = pygame.transform.scale(road, (screen_width, 100))
+        self.screen.blit(road, (0, screen_height - GROUND_HEIGHT))
 
 
-class Building(pygame.sprite.Sprite):
+class Scroller(pygame.sprite.Group):
+
+    def __init__(self, cla, speed, spritewidth=200):
+        super().__init__()
+
+        self.sprite_class = cla
+
+        self.speed = speed
+
+        self.sprite_width = spritewidth
+
+        self.sprite_amount = int(math.ceil(screen_width / self.sprite_width) * 2)
+
+        for i in range(1, self.sprite_amount):
+            self.add_new(i * self.sprite_width)
+
+    def add_new(self, *args, **kwargs):
+
+        sprite = self.sprite_class(*args, **kwargs)
+        self.add(sprite)
+
+    def update(self):
+        super().update(self.speed)
+
+        if len(self) < self.sprite_amount:
+            q = -99999
+            for building in self:
+                if building.rect.x > q:
+                    q = building.rect.x
+            self.add_new(q + self.sprite_width)
+
+class ScrollableSprite(pygame.sprite.Sprite):
+
+    def update(self, speed):
+
+        self.rect.x -= speed
+
+        if self.rect.x < -self.width:
+            self.kill()
+
+class Building(ScrollableSprite):
 
     def __init__(self, xpos):
 
@@ -75,10 +91,3 @@ class Building(pygame.sprite.Sprite):
 
         self.rect.y = screen_height - GROUND_HEIGHT - self.height
         self.rect.x = xpos
-
-    def update(self, speed):
-
-        self.rect.x -= speed
-
-        if self.rect.x < -self.width:
-            self.kill()
