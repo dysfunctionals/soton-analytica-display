@@ -124,6 +124,7 @@ class DistantBuilding(ScrollableSprite):
         super().__init__()
 
         self.width = 100
+
         self.height = random.randint(100, 800)
 
         self.image = pygame.Surface([self.width, self.height])

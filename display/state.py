@@ -6,6 +6,7 @@ from display.background import Background
 from comms.InputEvent import InputEvent
 from threading import Thread
 
+
 class State:
     def __init__(self, screen, keyboard):
         self.screen = screen
@@ -39,7 +40,7 @@ class State:
 
             if not self.keyboard:
                 input_event = InputEvent(game_playing)
-                input_thread = Thread(target = input_event.run)
+                input_thread = Thread(target=input_event.run)
                 input_thread.start()
 
             while game_playing:
@@ -53,12 +54,12 @@ class State:
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_e:
                                 zucc.evolve()
+                    else:
+                        if event.type == GETINPUT:
+                            zucc.ySpeed = event.zucc
+                            human.ySpeed = event.human
 
-                if not self.keyboard:
-                    if event.type == GETINPUT:
-                        zucc.ySpeed = event.zucc
-                        human.ySpeed = event.human
-                else:
+                if self.keyboard:
                     keys = pygame.key.get_pressed()
                     if keys[pygame.K_UP]:
                         zucc.ySpeed = -3
@@ -86,6 +87,7 @@ class State:
             pygame.quit()
         else:
             raise EnvironmentError
+
 
 class StateCode(Enum):
     MENU = 1
