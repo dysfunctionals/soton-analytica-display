@@ -73,15 +73,15 @@ class ZUCC(Character):
 
     def drawImage(self):
 
-        if self.currentStage < len(self.stages):
-            zucc = pygame.image.load(os.path.join("assets", "zucc", self.stages[self.currentStage]))
-            self.image = pygame.transform.scale(zucc, (320, 480))
+        zucc = pygame.image.load(os.path.join("assets", "zucc", self.stages[self.currentStage]))
+        self.image = pygame.transform.scale(zucc, (320, 480))
 
     def evolve(self):
 
-        self.currentStage += 1
-        self.makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate()
-        self.drawImage()
+        if self.currentStage < len(self.stages)-1:
+            self.currentStage += 1
+            self.makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate()
+            self.drawImage()
 
 class Human(Character):
 
