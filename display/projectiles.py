@@ -6,12 +6,11 @@ import math
 
 class Projectile(pygame.sprite.Sprite):
 
-    pixel_scale = 5
-
-    def __init__(self, icon, velocity, oscillate_height = 0, oscillate_rate = 1, random_start = True, start_y = 0, start_x = 0):
+    def __init__(self, icon, velocity, oscillate_height = 0, oscillate_rate = 1, pixel_scale = 5, type = 'passive', random_start = True, start_x = 0, start_y = 0):
 
         super().__init__()
 
+        self.pixel_scale = pixel_scale
         self.icon = icon
         self.draw_image()
         self.rect = self.image.get_rect()
@@ -32,10 +31,11 @@ class Projectile(pygame.sprite.Sprite):
         self.oscillate_height = oscillate_height
         self.oscillate_rate = oscillate_rate
         self.default_y = self.rect.y
+        self.type = type
 
     def draw_image(self):
         ifile = pygame.image.load(os.path.join("assets", "items", self.icon + ".png"))
-        self.image = pygame.transform.scale(ifile, (15*Projectile.pixel_scale, 15*Projectile.pixel_scale))
+        self.image = pygame.transform.scale(ifile, (15*self.pixel_scale, 15*self.pixel_scale))
 
     def update(self):
         self.rect.x += self.velocity

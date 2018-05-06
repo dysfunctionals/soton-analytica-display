@@ -1,4 +1,5 @@
 import pygame
+import random
 import os
 from display.constants import *
 from display.characters import ZUCC, Human
@@ -147,6 +148,16 @@ class StateMachine:
                     zucc.ySpeed = 3
                 else:
                     zucc.ySpeed = 0
+
+            for sprite in sprites:
+                if type(sprite).__name__ == "Projectile":
+                    if sprite.type == 'app' and sprite.rect.colliderect(human.collision_rect):
+                        sprite.kill()
+                        data = Projectile('data', random.randrange(-4, -8, -1), random.randrange(50, 100), random.randrange(1, 9), 5, 'data', False, human.collision_rect.x, human.collision_rect.y)
+                        sprites.add(data)
+                    if sprite.type == 'data' and sprite.rect.colliderect(zucc.collision_rect):
+                        sprite.kill()
+
 
             sprites.update()
 
