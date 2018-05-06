@@ -27,6 +27,10 @@ while state.state != StateCode.END:
             state.state = StateMachine.playIntro(screen)
         elif state.state == StateCode.PLAYING:
             state.state = StateMachine.playGame(screen, args.keyboard)
+        elif state.state == StateCode.ZUCC_WIN:
+            state.state = StateMachine.zucc_win(screen)
+        elif state.state == StateCode.HUMAN_WIN:
+            state.state = StateMachine.human_win(screen)
         else:
             raise EnvironmentError
     else:
