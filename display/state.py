@@ -7,17 +7,17 @@ from display.text import Text
 from display.projectiles import Projectile
 from display.menu import Menu
 from display.statecode import StateCode
+from display.projectilemaker import ProjectileMaker
 from comms.InputEvent import InputEvent
 from threading import Thread
+import random
 
 import time
 
 
 class StateMachine:
-
     def __init__(self):
-
-        self.state = StateCode.LOGO  # Set initial state
+        self.state = StateCode.MENU  # Set initial state
 
     @staticmethod
     def playLogo(screen):
@@ -101,18 +101,6 @@ class StateMachine:
         human = Human()
         sprites.add(human)
 
-        i_like_this = Projectile('like', -6, 250, 2)
-        sprites.add(i_like_this)
-
-        b = Projectile('wa', 4, 117, 20)
-        sprites.add(b)
-
-        q = Projectile('ig', -8, 300, 7)
-        sprites.add(q)
-
-        z = Projectile('fb', 5, 27, 9)
-        sprites.add(z)
-
         bg = Background(screen)
 
         clock = pygame.time.Clock()
@@ -123,6 +111,12 @@ class StateMachine:
             input_event = InputEvent(game_playing)
             input_thread = Thread(target=input_event.run)
             input_thread.start()
+        
+        projectile_event = ProjectileMaker()
+        projectile_thread = Thread(target=projectile_event.run)
+        projectile_thread.start()
+
+        projectiles = list()
 
         while game_playing:
 
@@ -130,6 +124,11 @@ class StateMachine:
 
                 if event.type == pygame.QUIT:
                     game_playing = False
+
+                if event.type == SENDPROJECTILE:
+                    proj = Projectile(icons[random.randint(0,len(icons) - 1)], random.randint(1,5), random.randint(25, 300), random.randint(2 ,20))
+                    sprites.add(proj)
+                    projectiles.append(proj)
 
                 if keyboard:
                     if event.type == pygame.KEYDOWN:
@@ -159,3 +158,12 @@ class StateMachine:
             clock.tick(60)
 
         return StateCode.END
+
+    @staticmethod
+    def projectilesOnScreen(projectiles):
+        if len(projectiles) == 0:
+            return False;
+        for projectile in projectiles:
+            if projectile.onScreen():
+                return True;
+        return False;
