@@ -134,7 +134,7 @@ class StateMachine:
                     game_playing = False
 
                 if event.type == SENDPROJECTILE:
-                    proj = Projectile(icons[random.randint(0,len(icons) - 1)], random.randint(1,5), random.randint(25, 300), random.randint(2 ,20), 5, 'app')
+                    proj = Projectile(icons[random.randint(0,len(icons) - 1)], random.randint(1,5), random.randint(25, 150), random.randint(2 ,20), 5, 'app')
                     sprites.add(proj)
 
                 if keyboard:

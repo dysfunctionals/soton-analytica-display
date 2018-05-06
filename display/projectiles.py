@@ -20,7 +20,7 @@ class Projectile(pygame.sprite.Sprite):
 
         if random_start:
             clearance = math.floor((screen_height - oscillate_height) / 2)
-            self.rect.y = random.randrange(clearance, screen_height - clearance)
+            self.rect.y = random.randrange(0, screen_height)
 
             if velocity < 0:
                 self.rect.x = screen_width
