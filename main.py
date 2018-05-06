@@ -29,9 +29,10 @@ clock = pygame.time.Clock()
 
 game_playing = True
 
-input_event = InputEvent(game_playing)
-input_thread = Thread(target = input_event.run)
-input_thread.start()
+if not args.keyboard:
+    input_event = InputEvent(game_playing)
+    input_thread = Thread(target = input_event.run)
+    input_thread.start()
 
 while game_playing:
 
@@ -42,9 +43,6 @@ while game_playing:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_e:
                 ZUCC.evolve()
-        elif event.type == GETINPUT:
-            ZUCC.ySpeed = event.zucc
-            human.ySpeed = event.human
 
         if args.keyboard:
             if event.type == pygame.KEYDOWN:
@@ -52,9 +50,9 @@ while game_playing:
                     ZUCC.evolve()
 
     if not args.keyboard:
-        movement = input_source.democracy(input_valid_time_seconds)
-        ZUCC.ySpeed = movement['zucc']
-        human.ySpeed = movement['user']
+        if event.type == GETINPUT:
+            ZUCC.ySpeed = event.zucc
+            human.ySpeed = event.human
     else:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
