@@ -24,7 +24,7 @@ PIXEL_MULTIPLIER = 10
 GROUND_HEIGHT = 100
 
 # Input
-default_address = "http://10.9.174.43/data"
+default_address = "https://ecs.pizza/api/data"
 input_valid_time_seconds = 1
 input_update_interval = 0.25
 GETINPUT = USEREVENT+2
