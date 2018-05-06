@@ -40,9 +40,6 @@ while game_playing:
 
         if event.type == pygame.QUIT:
             game_playing = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_e:
-                ZUCC.evolve()
 
         if args.keyboard:
             if event.type == pygame.KEYDOWN:
