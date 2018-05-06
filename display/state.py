@@ -18,7 +18,7 @@ import time
 
 class StateMachine:
     def __init__(self):
-        self.state = StateCode.MENU  # Set initial state
+        self.state = StateCode.LOGO  # Set initial state
 
     @staticmethod
     def playLogo(screen):
