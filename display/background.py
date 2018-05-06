@@ -5,8 +5,10 @@ from display.constants import *
 
 class Background:
 
-    def __init__(self, screen):
+    def __init__(self, screen, show_logo=True):
         self.screen = screen
+
+        self.show_logo = show_logo
 
         self.building_scroller = Scroller(Building, 6)
         self.road_scroller = Scroller(Road, 7 ,1080)
@@ -24,9 +26,10 @@ class Background:
         self.building_scroller.draw(self.screen)
         self.road_scroller.draw(self.screen)
 
-        logo = pygame.image.load(os.path.join("assets", "logos", "game.png"))
-        logo = pygame.transform.scale(logo, (400, 300))
-        self.screen.blit(logo, (0, 0))
+        if self.show_logo:
+            logo = pygame.image.load(os.path.join("assets", "logos", "game.png"))
+            logo = pygame.transform.scale(logo, (400, 300))
+            self.screen.blit(logo, (0, 0))
 
 
 class Scroller(pygame.sprite.Group):
