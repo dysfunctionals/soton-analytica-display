@@ -161,11 +161,12 @@ class StateMachine:
                         personal_data = data_manager.drop()
                         data = Projectile('data', random.randrange(-4, -8, -1), random.randrange(50, 100), random.randrange(1, 9), 5, 'data', False, human.collision_rect.x, human.collision_rect.y, data=personal_data)
                         sprites.add(data)
-                        if personal_data == None:
-                            return StateCode.ZUCC_WIN
                             
                     if sprite.type == 'data' and sprite.rect.colliderect(zucc.collision_rect):
                         sprite.kill()
+                        data_manager.pickup(sprite.data)
+                        if sprite.data == None:
+                            return StateCode.ZUCC_WIN
 
                     if sprite.type == 'power_size' and sprite.rect.colliderect(human.collision_rect):
                         sprite.kill()
@@ -230,6 +231,8 @@ class StateMachine:
             # Show countdown to GDPR
             if day_past < 20:
                 day_past = (pygame.time.get_ticks() - start_ticks) / 4500
+            else:
+                return StateCode.HUMAN_WIN
             countdown_gdpr = Text((screen_width / 2 - 100, 0), (255,255,255))
             countdown_gdpr.text = '{:02d} days till GDPR'.format(int(20 - day_past))
             countdown_gdpr.font = countdown_gdpr.make_font(['Lucida Console'], 36)

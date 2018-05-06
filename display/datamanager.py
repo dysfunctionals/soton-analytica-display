@@ -11,8 +11,7 @@ class DataManager:
             return None
         lost = self.dataRemaining[random.randint(0, len(self.dataRemaining) - 1)]
         print(lost)
-        if lost != None:
-            return lost
+        return lost
 
     def pickup(self, data):
         try:
