@@ -161,11 +161,12 @@ class StateMachine:
                         personal_data = data_manager.drop()
                         data = Projectile('data', random.randrange(-4, -8, -1), random.randrange(50, 100), random.randrange(1, 9), 5, 'data', False, human.collision_rect.x, human.collision_rect.y, data=personal_data)
                         sprites.add(data)
-                        if personal_data == None:
-                            return StateCode.ZUCC_WIN
                             
                     if sprite.type == 'data' and sprite.rect.colliderect(zucc.collision_rect):
                         sprite.kill()
+                        data_manager.pickup(sprite.data)
+                        if sprite.data == None:
+                            return StateCode.ZUCC_WIN
 
                     if sprite.type == 'power_size' and sprite.rect.colliderect(human.collision_rect):
                         sprite.kill()
