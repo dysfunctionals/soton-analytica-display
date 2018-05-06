@@ -40,10 +40,13 @@ class Character(pygame.sprite.Sprite):
         return self.image.get_size()
 
     def moveX(self, amount):
+        self.makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate()
         self.rect.x += amount
 
     def moveY(self, amount):
-        self.rect.y += amount
+        self.makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate()
+        if not ((amount < 0 and self.collision_rect.y < 10) or (amount > 0 and self.rect.y > screen_height - self.getSize()[1] - 10)):
+            self.rect.y += amount
 
     def makeCollisionBoxHaveRightWidthAndHeightAndXCoordinateAndYCoordinate(self):
         currentChar_state = CHARSTATES['chars'][type(self).__name__]['states'][self.currentStage]
